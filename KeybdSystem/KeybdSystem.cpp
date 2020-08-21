@@ -9,6 +9,7 @@
 #include "MSmoothLayout.hpp"
 #include "PluginFramework.hpp"
 #include "resource.h"
+#include <string>
 
 static const TCHAR s_szName[] = TEXT("KeybdSystem");
 static HINSTANCE s_hInst = NULL;
@@ -143,7 +144,15 @@ void OnDrawItem(HWND hwnd, INT idFrom, DRAWITEMSTRUCT *pDrawItem)
     LOGFONT lf;
     GetObject(hFont, sizeof(lf), &lf);
     lf.lfQuality = ANTIALIASED_QUALITY;
-    lf.lfHeight = -std::min(siz.cx, siz.cy);
+    //lf.lfHeight = -std::min(siz.cx, siz.cy);
+	if (siz.cx < siz.cy) 
+	{
+		lf.lfHeight = siz.cx;
+	}
+	else 
+	{
+		lf.lfHeight = siz.cy;
+	}
 
     if (lstrcmpi(lf.lfFaceName, TEXT("MS UI Gothic")) == 0)
     {
